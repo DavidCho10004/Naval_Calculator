@@ -1,3 +1,4 @@
+/* 전체 페이지 스타일 */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f8ff;
@@ -10,6 +11,7 @@ body {
     box-sizing: border-box;
 }
 
+/* 컨테이너 스타일 */
 .container {
     background-color: white;
     padding: 30px;
@@ -19,16 +21,19 @@ body {
     width: 100%;
 }
 
+/* 제목 스타일 */
 h1, h2, h3 {
     text-align: center;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
+/* 섹션 스타일 */
 section {
     margin-bottom: 30px;
 }
 
+/* 그리드 스타일 */
 .particulars-grid, .measurement-grid {
     display: grid;
     gap: 20px;
@@ -42,12 +47,7 @@ section {
     grid-template-columns: 1fr;
 }
 
-@media (min-width: 768px) {
-    .measurement-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
+/* 폼 스타일 */
 form label {
     display: block;
     margin-bottom: 5px;
@@ -71,6 +71,7 @@ form input:focus {
     box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.25);
 }
 
+/* 버튼 스타일 */
 button {
     width: 100%;
     padding: 15px;
@@ -87,6 +88,7 @@ button:hover {
     background-color: #218838;
 }
 
+/* 결과 섹션 스타일 */
 #results {
     background-color: #f8f9fa;
     padding: 20px;
@@ -104,6 +106,7 @@ button:hover {
     margin: 10px 0;
 }
 
+/* 선박 도면 이미지 스타일 */
 #shipPlan {
     max-width: 100%;
     height: auto;
@@ -111,6 +114,7 @@ button:hover {
     margin: 0 auto 20px;
 }
 
+/* 측정값과 예상값 컨테이너 스타일 */
 .measurement-expected-container {
     display: flex;
     justify-content: space-between;
@@ -128,17 +132,26 @@ button:hover {
     margin: 0 auto;
 }
 
+/* 간격 조정을 위한 스페이서 스타일 */
+.spacer {
+    height: 38px;
+    margin-bottom: 10px;
+}
+
+/* 읽기 전용 입력 필드 스타일 */
+#expected input[readonly] {
+    background-color: #f0f0f0;
+}
+
+/* 미디어 쿼리 */
+@media (min-width: 768px) {
+    .measurement-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
 @media (max-width: 768px) {
     .measurement-expected-container {
         flex-direction: column;
     }
-}
-
-.spacer {
-    height: 38px;  /* 입력 필드의 높이와 비슷하게 설정 */
-    margin-bottom: 10px;  /* 입력 필드 사이의 간격과 동일하게 설정 */
-}
-
-#expected input[readonly] {
-    background-color: #f0f0f0;  /* 읽기 전용 입력 필드를 시각적으로 구분 */
 }
