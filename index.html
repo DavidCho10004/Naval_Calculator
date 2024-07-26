@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trim and Heel Adjustment Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Trim and Heel Adjustment Calculator</h1>
+        <h2>트림 및 힐 조정 계산기</h2>
+        
+        <form id="adjustForm">
+            <section id="particulars">
+                <h3>Ship Particulars / 선박 제원</h3>
+                <div class="particulars-grid">
+                    <div>
+                        <label for="displacement">Displacement (ton) / 배수량:</label>
+                        <input type="number" id="displacement" name="displacement" step="0.01" required aria-required="true">
+                    </div>
+                    <div>
+                        <label for="breadth">Breadth (m) / 선폭:</label>
+                        <input type="number" id="breadth" name="breadth" step="0.01" required aria-required="true">
+                        
+                    </div>
+                    <div>
+                        <label for="tpc">TPC (ton/cm):</label>
+                        <input type="number" id="tpc" name="tpc" step="0.01" required aria-required="true">
+                    </div>
+                    <div>
+                        <label for="gm">GM (m):</label>
+                        <input type="number" id="gm" name="gm" step="0.01" required aria-required="true">
+                    </div>
+                    <div>
+                        <label for="mtc">MTC (ton x m):</label>
+                        <input type="number" id="mtc" name="mtc" step="0.01" required aria-required="true">
+                    </div>
+                    <div>
+                        <label for="lcf">LCF from A.P. (m) / 선미에서의 거리:</label>
+                        <input type="number" id="lcf" name="lcf" step="0.01" required aria-required="true">
+                    </div>
+                </div>
+            </section>
+
+                <img src="{{ url_for('static', filename='ship_plan.png') }}" alt="Ship Plan / 선박 도면" id="shipPlanImage">
+            </section>
+
+            <div class="measurement-expected-container">
+                <section id="measurement">
+                    <h3>Measured Draft / 측정값</h3>
+                    <div>
+                        <label for="fwd_draft">Forward Draft (m) / 선수 흘수:</label>
+                        <input type="number" id="fwd_draft" name="fwd_draft" step="0.01" required aria-required="true">
+                        
+                        <label for="mid_p_draft">Port Draft (m) / 좌현 흘수:</label>
+                        <input type="number" id="mid_p_draft" name="mid_p_draft" step="0.01" required aria-required="true">
+                        
+                        <label for="mid_s_draft">Starboard Draft (m) / 우현 흘수:</label>
+                        <input type="number" id="mid_s_draft" name="mid_s_draft" step="0.01" required aria-required="true">
+                        
+                        <label for="aft_draft">Aft Draft (m) / 선미 흘수:</label>
+                        <input type="number" id="aft_draft" name="aft_draft" step="0.01" required aria-required="true">
+                        
+                        <div class="calculated-values">
+                            <p>Trim (cm) / 트림: <span id="calculatedTrim"></span></p>
+                            <p>Heel (cm) / 힐: <span id="calculatedHeel"></span></p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="expected">
+                    <h3>Expected Draft / 예상값</h3>
+                    <div>
+                        <label for="exp_fwd_draft">Forward Draft (m) / 선수 흘수:</label>
+                        <input type="number" id="exp_fwd_draft" name="exp_fwd_draft" step="0.01" readonly>
+                        
+                        <div class="spacer"></div>  <!-- 빈 공간 -->                        
+                        <div class="spacer"></div>  <!-- 빈 공간 -->
+                        <div class="spacer"></div>  <!-- 빈 공간 -->
+                                                
+                        <label for="exp_aft_draft">Aft Draft (m) / 선미 흘수:</label>
+                        <input type="number" id="exp_aft_draft" name="exp_aft_draft" step="0.01" readonly>                        
+                    </div>
+                </section>
+            </div>
+
+            <section id="adjust">
+                <h3>Adjustment / 조정</h3>
+                <div>
+                    <label for="position">Position of Weight from A.P. (m) / 중량물 위치 (선미에서의 거리):</label>
+                    <input type="number" id="position" name="position" step="0.01" required aria-required="true">
+
+                    <label for="position_center">Position of Weight from C.L. (m, STBD+/PORT-) / 중량물 위치 (중심선에서의 거리, 우현+/좌현-):</label>
+                    <input type="number" id="position_center" name="position_center" step="0.01" required aria-required="true">
+                </div>
+            </section>
+
+            <button type="submit">Calculate / 계산하기</button>
+
+            <section id="results">
+                <h3>Calculation Results / 계산 결과</h3>
+                <div class="calculated-values">
+                    <p>Weight for Trim Adjustment / 트림 조정용 중량: <span id="weightTrimResult"></span> tons</p>
+                    <p>Weight for Heel Adjustment / 힐 조정용 중량: <span id="weightHeelResult"></span> tons</p>
+                    <p>Total Weight for Adjustment / 총 조정 중량: <span id="totalWeightResult"></span> tons</p>
+                </div>
+            </section>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
