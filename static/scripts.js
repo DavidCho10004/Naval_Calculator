@@ -12,16 +12,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const gm = parseFloat(document.getElementById('gm').value);
         const mtc = parseFloat(document.getElementById('mtc').value);
         const lcf = parseFloat(document.getElementById('lcf').value);
-        const fwd_draft = parseFloat(document.getElementById('fwd_draft').value);
-        const mid_p_draft = parseFloat(document.getElementById('mid_p_draft').value);
-        const mid_s_draft = parseFloat(document.getElementById('mid_s_draft').value);
-        const aft_draft = parseFloat(document.getElementById('aft_draft').value);
+        const fwdDraft = parseFloat(document.getElementById('fwd_draft').value);
+        const midPDraft = parseFloat(document.getElementById('mid_p_draft').value);
+        const midSDraft = parseFloat(document.getElementById('mid_s_draft').value);
+        const aftDraft = parseFloat(document.getElementById('aft_draft').value);
         const position = parseFloat(document.getElementById('position').value);
-        const position_center = parseFloat(document.getElementById('position_center').value);
+        const positionCenter = parseFloat(document.getElementById('position_center').value);
 
         // 트림과 힐 계산
-        const trim = (fwd_draft - aft_draft) * 100; // cm로 변환
-        const heel = (mid_s_draft - mid_p_draft) * 100; // cm로 변환
+        const trim = (fwdDraft - aftDraft) * 100; // cm로 변환
+        const heel = (midSDraft - midPDraft) * 100; // cm로 변환
 
         // 계산된 트림과 힐 표시
         document.getElementById('calculatedTrim').textContent = trim.toFixed(1);
@@ -29,11 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 트림과 힐 조정을 위한 무게 계산
         const weightTrim = -(trim * mtc) / (position - lcf);
-        const weightHeel = -(heel / 100) * displacement * gm / (position_center * breadth);
+        const weightHeel = -(heel / 100) * displacement * gm / (positionCenter * breadth);
         const totalWeight = weightTrim + weightHeel;
 
         // 예상 흘수 계산
-        const averageDraft = (fwd_draft + aft_draft) / 2;
+        const averageDraft = (fwdDraft + aftDraft) / 2;
         const expectedDraft = averageDraft + weightTrim / tpc / 100;
 
         // 결과 표시
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         resultSection.style.display = 'block';
     });
 
-    // 실시간 입력 유효성 검사 (변경 없음)
+    // 실시간 입력 유효성 검사
     const inputs = form.querySelectorAll('input[type="number"]');
     inputs.forEach(input => {
         input.addEventListener('input', function() {
