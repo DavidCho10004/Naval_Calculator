@@ -1,8 +1,3 @@
-웹 페이지에서 계산 버튼을 누르면 폼이 제출되면서 페이지가 새로고침되어 값들이 사라지는 것으로 보입니다. 이를 해결하기 위해서는 폼 제출 시 페이지 새로고침을 방지하고, 결과를 동적으로 업데이트해야 합니다.
-
-아래는 수정된 JavaScript 코드입니다:
-
-```javascript
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('adjustForm');
     const resultSection = document.getElementById('results');
@@ -57,9 +52,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-```
-
-변경 사항:
-- `form.addEventListener('submit', ...)` 내부에서 `event.preventDefault()`를 호출하여 폼 제출 시 페이지 새로고침을 방지합니다.
-
-이 변경으로 계산 버튼을 누를 때 페이지가 새로고침되지 않고 결과가 동적으로 업데이트될 것입니다. GitHub 저장소에서 해당 파일을 수정하고 변경 사항을 커밋하면 문제가 해결될 것입니다.
