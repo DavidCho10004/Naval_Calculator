@@ -1,46 +1,51 @@
+웹 페이지에서 계산 버튼을 누르면 폼이 제출되면서 페이지가 새로고침되어 값들이 사라지는 것으로 보입니다. 이를 해결하기 위해서는 폼 제출 시 페이지 새로고침을 방지하고, 결과를 동적으로 업데이트해야 합니다.
+
+아래는 수정된 JavaScript 코드입니다:
+
+```javascript
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('adjustForm');
     const resultSection = document.getElementById('results');
-
+    
     form.addEventListener('submit', function(event) {
-        event.preventDefault();
-
+        event.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
+        
         const formData = new FormData(form);
         const jsonData = {};
         for (const [key, value] of formData.entries()) {
             jsonData[key] = parseFloat(value);
         }
-
-        // Calculate trim and heel
-        const trim = (jsonData.fwd_draft - jsonData.aft_draft) * 100; // Convert to cm
-        const heel = (jsonData.mid_s_draft - jsonData.mid_p_draft) * 100; // Convert to cm
-
-        // Display calculated trim and heel
+        
+        // 트림과 힐 계산
+        const trim = (jsonData.fwd_draft - jsonData.aft_draft) * 100; // cm로 변환
+        const heel = (jsonData.mid_s_draft - jsonData.mid_p_draft) * 100; // cm로 변환
+        
+        // 계산된 트림과 힐 표시
         document.getElementById('calculatedTrim').textContent = trim.toFixed(1);
         document.getElementById('calculatedHeel').textContent = heel.toFixed(1);
-
-        // Calculate weights for trim and heel adjustment
+        
+        // 트림과 힐 조정을 위한 무게 계산
         const weightTrim = -(trim * jsonData.mtc) / (jsonData.position - jsonData.lcf);
         const weightHeel = -(heel / 100) * jsonData.displacement * jsonData.gm / (jsonData.position_center * jsonData.breadth);
         const totalWeight = weightTrim + weightHeel;
-
-        // Calculate expected drafts
+        
+        // 예상 흘수 계산
         const averageDraft = (jsonData.fwd_draft + jsonData.aft_draft) / 2;
         const expectedDraft = averageDraft + weightTrim / jsonData.tpc / 100;
-
-        // Display results
+        
+        // 결과 표시
         document.getElementById('weightTrimResult').textContent = weightTrim.toFixed(2);
         document.getElementById('weightHeelResult').textContent = weightHeel.toFixed(2);
         document.getElementById('totalWeightResult').textContent = totalWeight.toFixed(2);
         
-        // Display expected drafts
+        // 예상 흘수 표시
         document.getElementById('exp_fwd_draft').value = expectedDraft.toFixed(2);
         document.getElementById('exp_aft_draft').value = expectedDraft.toFixed(2);
-
+        
         resultSection.style.display = 'block';
     });
-
-    // Real-time input validation (unchanged)
+    
+    // 실시간 입력 유효성 검사 (변경 없음)
     const inputs = form.querySelectorAll('input[type="number"]');
     inputs.forEach(input => {
         input.addEventListener('input', function() {
@@ -52,3 +57,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+```
+
+변경 사항:
+- `form.addEventListener('submit', ...)` 내부에서 `event.preventDefault()`를 호출하여 폼 제출 시 페이지 새로고침을 방지합니다.
+
+이 변경으로 계산 버튼을 누를 때 페이지가 새로고침되지 않고 결과가 동적으로 업데이트될 것입니다. GitHub 저장소에서 해당 파일을 수정하고 변경 사항을 커밋하면 문제가 해결될 것입니다.
